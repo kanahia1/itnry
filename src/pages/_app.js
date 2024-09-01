@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import '@/styles/globals.css';
+import 'mapbox-gl/dist/mapbox-gl.css';
 import { Poppins } from 'next/font/google';
 import { Loader } from '@/components';
 

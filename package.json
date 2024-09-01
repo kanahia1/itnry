@@ -10,6 +10,8 @@
         "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
     },
     "dependencies": {
+        "@mapbox/search-js-react": "^1.0.0-beta.22",
+        "mapbox-gl": "^3.6.0",
         "next": "13.5.4",
         "react": "^18",
         "react-dom": "^18"
