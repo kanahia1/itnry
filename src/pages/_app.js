@@ -7,7 +7,7 @@ import { Loader } from '@/components';
 const Poppins_ = Poppins({
     style: 'normal',
     subsets: ['latin-ext'],
-    weight: '500',
+    weight: ['200', '300', '400', '500', '600', '700'],
     display: 'swap',
 });
 export default function App({ Component, pageProps }) {
