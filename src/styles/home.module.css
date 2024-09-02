@@ -1,4 +1,4 @@
-.background {
+.background, .myVideo {
 	position: fixed;
 	background-image: url("/home/landing_bg.png");
 	background-size: cover;
@@ -6,6 +6,8 @@
 	height: 100vh;
 	min-width: 100vw;
 	z-index: -1;
+	display: flex;
+	justify-content: center;
 }
 
 @media screen and (max-width: 768.5px) {
