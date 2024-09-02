@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from '@/styles/planner.module.css';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import mapboxgl from '!mapbox-gl';
 import dynamic from 'next/dynamic';
 
@@ -9,8 +10,8 @@ const SearchBox = dynamic(() => import('@mapbox/search-js-react').then((mod) => 
 });
 
 export default function Planner() {
+    const router = useRouter();
     const [cityList, setCityList] = useState([
-        { city: '', startDate: '', endDate: '', latLng: [null, null] },
         { city: '', startDate: '', endDate: '', latLng: [null, null] },
     ]);
     const [peopleCount, setPeopleCount] = useState(1);
@@ -60,6 +61,27 @@ export default function Planner() {
         ]);
     }
 
+    function handleSubmit() {
+        if (cityList.length === 0) {
+        	alert("Please add at least one city");
+        	return;
+        }
+        for (let i = 0; i < cityList.length; i++) {
+        	if (cityList[i].city === "") {
+        		alert("Please fill in all the fields");
+        		return;
+        	} else if (cityList[i].latLng === "") {
+        		alert("Please select the city from the selection box");
+        		return;
+        	} else if (cityList[i].startDate === "" || cityList[i].endDate === "") {
+        		alert("Please select the start and end dates for the city");
+        		return;
+        	}
+        }
+        // console.log('/itinerary?cityList=' + JSON.stringify(cityList));
+        router.push('/itinerary?cityList=' + JSON.stringify(cityList) + "&peopleCount=" + peopleCount + "&budgetLevel=" + budgetLevel, '/itinerary');
+    }
+
     const mapContainer = useRef();
     const mapInstanceRef = useRef();
     useEffect(() => {
@@ -73,10 +95,17 @@ export default function Planner() {
         });
     }, []);
 
-	useEffect(() => {
+    useEffect(() => {
         async function getRoute(start, end, index1, index2) {
-			if (!start.city || !start.latLng[0] || !start.latLng[1] || !end.city || !end.latLng[0] || !end.latLng[1])
-				return;
+            if (
+                !start.city ||
+                !start.latLng[0] ||
+                !start.latLng[1] ||
+                !end.city ||
+                !end.latLng[0] ||
+                !end.latLng[1]
+            )
+                return;
             const response = await fetch(
                 `https://api.mapbox.com/directions/v5/mapbox/driving/${start.latLng[0]},${start.latLng[1]};${end.latLng[0]},${end.latLng[1]}?steps=true&geometries=geojson&access_token=${mapboxgl.accessToken}`,
                 { method: 'GET' }
@@ -126,12 +155,16 @@ export default function Planner() {
                 });
             }
         }
-		console.log(cityList);
-		getRoute(cityList[0], cityList[0], 0, 0);
-		for (let i = 0; i < cityList.length - 1; i++) {
-			getRoute(cityList[i], cityList[i + 1], i, i + 1);
-		}
-		getRoute(cityList[cityList.length-1], cityList[cityList.length-1], cityList.length-1, cityList.length-1);
+        getRoute(cityList[0], cityList[0], 0, 0);
+        for (let i = 0; i < cityList.length - 1; i++) {
+            getRoute(cityList[i], cityList[i + 1], i, i + 1);
+        }
+        getRoute(
+            cityList[cityList.length - 1],
+            cityList[cityList.length - 1],
+            cityList.length - 1,
+            cityList.length - 1
+        );
     }, [cityList]);
 
     return (
@@ -139,6 +172,7 @@ export default function Planner() {
             <div className={styles.background}></div>
             <div className={styles.header}>
                 <Image
+                    alt="itnry"
                     style={{ filter: 'invert(1)' }}
                     src="/home/itnry.svg"
                     width={120}
@@ -160,8 +194,7 @@ export default function Planner() {
                                     addCity={addCity}
                                     removeCity={removeCity}
                                     setCity={setCity}
-									setCoords={setCoords}
-
+                                    setCoords={setCoords}
                                     setStartDate={setStartDate}
                                     setEndDate={setEndDate}
                                     mapInstanceRef={mapInstanceRef}
@@ -266,7 +299,7 @@ export default function Planner() {
                             </div>
                         </div>
                     </div>
-                    <button type="button" className={styles.button}>
+                    <button type="button" className={styles.button} onClick={handleSubmit}>
                         Generate
                     </button>
                 </div>
@@ -289,7 +322,7 @@ const CityItem = ({
     addCity,
     removeCity,
     setCity,
-	setCoords,
+    setCoords,
     setStartDate,
     setEndDate,
     mapInstanceRef,
@@ -308,6 +341,7 @@ const CityItem = ({
             )}
             <div className={styles.cityItem}>
                 <Image
+					alt="close"
                     width={26}
                     height={26}
                     src={
@@ -318,7 +352,7 @@ const CityItem = ({
                             : '/home/travel_transit.svg'
                     }
                     onClick={() => {
-                        if (index != 0 && index != length - 1) removeCity(index);
+                        if (length > 1) removeCity(index);
                     }}
                 />
                 {/* <input
@@ -336,7 +370,11 @@ const CityItem = ({
                     onChange={(e) => setCity(e, index)}
                     marker
                     onRetrieve={(e) => {
-						setCoords(e.features[0].geometry.coordinates, e.features[0].properties.name, index);
+                        setCoords(
+                            e.features[0].geometry.coordinates,
+                            e.features[0].properties.name,
+                            index
+                        );
                     }}
                 />
                 <input
@@ -358,41 +396,38 @@ const CityItem = ({
                     placeholder="Select End Date"
                 />
             </div>
-            {index != length - 1 && (
-                <>
-                    <div
-                        style={{
-                            marginLeft: '20%',
-                            height: '40px',
-                            width: '1px',
-                            backgroundColor: '#0F67FE',
-                        }}
+
+            <div
+                style={{
+                    marginLeft: '20%',
+                    height: '40px',
+                    width: '1px',
+                    backgroundColor: '#0F67FE',
+                }}
+            />
+            <div className={styles.addButton} onClick={() => addCity(index)}>
+                <svg
+                    width="13"
+                    height="13"
+                    viewBox="0 0 13 13"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M6.34247 1V11.5"
+                        stroke="white"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
                     />
-                    <div className={styles.addButton} onClick={() => addCity(index)}>
-                        <svg
-                            width="13"
-                            height="13"
-                            viewBox="0 0 13 13"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                d="M6.34247 1V11.5"
-                                stroke="white"
-                                stroke-width="1.5"
-                                stroke-linecap="round"
-                            />
-                            <path
-                                d="M1.09247 6.25L11.5925 6.25"
-                                stroke="white"
-                                stroke-width="1.5"
-                                stroke-linecap="round"
-                            />
-                        </svg>
-                        Add Intermediate Destination
-                    </div>
-                </>
-            )}
+                    <path
+                        d="M1.09247 6.25L11.5925 6.25"
+                        stroke="white"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                    />
+                </svg>
+                Add {index != length - 1 && 'Intermediate'} Destination
+            </div>
         </>
     );
 };

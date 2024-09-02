@@ -21,6 +21,7 @@
 	align-items: center;
 	padding: calc(20px + 1.5625vw);
 	font-size: 20px;
+	color: white;
 }
 
 .container {

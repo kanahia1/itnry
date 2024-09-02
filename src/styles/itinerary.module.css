@@ -1,0 +1,88 @@
+.background {
+    position: fixed;
+    background-color: #ffffff;
+    height: 100vh;
+    min-width: 100vw;
+    z-index: -1;
+}
+
+.header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: calc(20px + 1.5625vw);
+    font-size: 20px;
+}
+
+.headerButton {
+    padding: 4px 20px;
+    border: 1px solid black;
+    border-radius: 30px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 40px;
+    gap: 40px;
+    color: black;
+}
+
+.title {
+    font-size: calc(25px + 0.734375vw);
+    font-weight: 500;
+    line-height: 1.1;
+}
+
+.dayCard {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.dayCardTitle {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px 10px 0px 30px;
+}
+
+.searchBox {
+    width: 100%;
+    padding: 10px 20px;
+    border: 1px solid #bbb;
+    border-radius: 10px;
+    outline: none;
+}
+
+.activitySection {
+    margin-block: 30px;
+}
+
+.activityCard {
+    display: flex;
+    flex-direction: column;
+    background-color: #fbfbfb;
+    border: 1px solid #bbb;
+    border-radius: 20px;
+    padding: 20px;
+    gap: 10px;
+}
+
+.activityCard > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.activityTime {
+    width: fit-content;
+    background-color: white;
+    padding: 5px 10px;
+    border: 0.5px solid black;
+    border-radius: 10px;
+}
