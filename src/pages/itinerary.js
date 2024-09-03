@@ -13,26 +13,8 @@ const Itinerary = () => {
     console.log(cityList);
     console.log(peopleCount);
     console.log(budgetLevel);
-    // const cityList = [
-    //     {
-    //         city: 'Bihta',
-    //         startDate: '2024-09-11',
-    //         endDate: '2024-09-12',
-    //         latLng: [84.86772, 25.558243],
-    //     },
-    //     {
-    //         city: 'Patna',
-    //         startDate: '2024-09-13',
-    //         endDate: '2024-09-24',
-    //         latLng: [85.122734, 25.609442],
-    //     },
-    // ];
-
     const [itinerary, setItinerary] = useState([]);
     const [loading, setLoading] = useState(true);
-
-    // const cityList = JSON.parse(router.query.cityList);
-    // console.log(cityList);
 
     useEffect(() => {
         fetch('/api/itinerary', {

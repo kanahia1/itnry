@@ -12,7 +12,7 @@ export default async function handler(req, res) {
             hotelCost: 0,
             itinerary: [
                 {
-                    day: '',
+                    day: '2024-12-31',
                     activities: [
                         {
                             name: '',
@@ -32,7 +32,7 @@ export default async function handler(req, res) {
                     ],
                 },
                 {
-                    day: '',
+                    day: '2024-12-31',
                     activities: [
                         {
                             name: '',
@@ -68,7 +68,7 @@ export default async function handler(req, res) {
             hotelCost: 0,
             itinerary: [
                 {
-                    day: '',
+                    day: '2024-12-31',
                     activities: [
                         {
                             name: '',
@@ -94,7 +94,7 @@ export default async function handler(req, res) {
                     ],
                 },
                 {
-                    day: '',
+                    day: '2024-12-31',
                     activities: [
                         {
                             name: '',

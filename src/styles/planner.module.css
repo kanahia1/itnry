@@ -20,19 +20,20 @@
     flex-direction: row-reverse;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 40px;
     gap: 40px;
+    padding: 0 20px;
     color: black;
 }
 
 .halves {
     display: flex;
-    width: 40vw;
-    /* height: 100%; */
+    width: calc(50% - 40px); 
+    min-width: 300px; 
     min-height: 60vh;
     flex-direction: column;
     gap: min(50px, 5vh);
 }
+
 
 @media screen and (max-width: 768px) {
 	.halves {
@@ -201,4 +202,5 @@
 
 .mapContainer {
     height: 100%;
+    border-radius: 10px; 
 }
