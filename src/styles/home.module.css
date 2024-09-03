@@ -1,13 +1,11 @@
 .background, .myVideo {
 	position: fixed;
-	background-image: url("/home/landing_bg.png");
-	background-size: cover;
-	background-position: 40%;
+	top: 0;
+	left: 0;
+	width: 100vw;
 	height: 100vh;
-	min-width: 100vw;
+	object-fit: cover; 
 	z-index: -1;
-	display: flex;
-	justify-content: center;
 }
 
 @media screen and (max-width: 768.5px) {
@@ -30,12 +28,18 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	justify-content: center;
 	gap: 20px;
 	color: white;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
 }
 
 .title {
-	font-size: calc(35px + 2.734375vw);
+	font-size: calc(26px + 2.734375vw);
 	font-weight: 500;
 	text-align: center;
 	max-width: 75vw;
@@ -43,9 +47,10 @@
 }
 
 .desc {
-	font-size: calc(15px + 0.703125vw);
-	font-weight: 500;
-	line-height: calc(24px + 1.0546875vw);
+	font-size: calc(10px + 0.703125vw);
+	font-weight: 400;
+	line-height: calc(12px + 1.0546875vw);
+	color: #ffffffae;
 	text-align: center;
 	max-width: 900px;
 	width: 80vw;
@@ -58,9 +63,9 @@
 
 .button > div {
 	border-radius: 150px;
-	padding: 20px;
+	padding: 10px;
 	background-color: white;
-	color: #555555;
-	font-size: calc(15px + 0.703125vw);
+	color: #000000;
+	font-size: calc(9px + 0.703125vw);
 	font-weight: 400;
 }
