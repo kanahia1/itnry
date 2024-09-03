@@ -265,7 +265,7 @@ export default function Planner() {
                             </div>
                         </div>
                         <div className={styles.budget}>
-                            <p>Budget Level</p>
+                            <p>Budget Level <b>*</b></p>
                             <div>
                                 <div style={{ marginLeft: '15px' }}>
                                     <input
@@ -310,6 +310,15 @@ export default function Planner() {
                     <div ref={mapContainer} className={styles.mapContainer} />
                 </div>
             </div>
+            <div className={styles.warningMessage} style={{ 
+                position: 'fixed',
+                fontSize:  '14px',
+                fontWeight: '300',
+                bottom: '20px',
+                right: '20px',
+                padding: '10px', }}>
+              * This itinerary is AI generated and may not be accurate. Please verify the details before proceeding.
+            </div>            
         </>
     );
 }
