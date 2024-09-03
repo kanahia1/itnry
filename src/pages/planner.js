@@ -86,7 +86,7 @@ export default function Planner() {
     const mapInstanceRef = useRef();
     useEffect(() => {
         mapboxgl.accessToken =
-            'pk.eyJ1IjoiZXhhbXBsZXMiLCJhIjoiY2p0MG01MXRqMW45cjQzb2R6b2ptc3J4MSJ9.zA2W0IkI0c6KaAhJfk9bWg';
+            process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
         mapInstanceRef.current = new mapboxgl.Map({
             container: mapContainer.current,
